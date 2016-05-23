@@ -1,0 +1,29 @@
+<div class = "model" tabindex="-1" role="dialog">
+  <div class="modal-dialog"> 
+    <div class="modal-content" style="width: 71%">
+      <div class="modal-header">
+        <h4 class="modal-title"> Share: </h4>
+      </div>
+      <div class="modal-body">
+      	<%= form_tag( url: share_blog_path, method: :Post ) do %>
+					<table class="table table-bordered">
+					  <thead>
+					    <tr>
+					      <th>Users</th>
+					    	<th></th>
+					    </tr> 
+					  </thead>
+						<tbody>
+					    <% @user.each do |user| %>
+					      <tr>
+					        <td><%= user.email %></td>
+					        <td><%= check_box_tag 'user_ids[]', user.id %>
+					    <% end %>
+					  </tbody>
+					</table>
+					<%= submit_tag 'Share' %>
+				<% end %>
+      </div>
+    </div>
+  </div>
+</div>
