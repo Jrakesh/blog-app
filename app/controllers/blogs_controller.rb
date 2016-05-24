@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
   end
 
   def list
-    @blogs = Blog.where(:publish => true)
+    @blogs = Blog.published.recent_ten
   end
 
   def show
@@ -26,7 +26,7 @@ class BlogsController < ApplicationController
 
   def create
     @blog = current_user.blogs.new(blog_params)
-    @blog.save
+    flash[:notice] = "Blog is saved." if @blog.save
     respond_with(@blog)
   end
 
@@ -52,9 +52,9 @@ class BlogsController < ApplicationController
           ids = params[:user_ids]
           create_share_blog(ids)
         end
-       format.html { redirect_to '/blogs' }
+       format.html { redirect_to '/blogs', notice: 'Blog is shared successfully.' }
       else
-        @user = User.all
+        @user = current_user.friends
         format.js
         format.html
       end 
@@ -67,7 +67,7 @@ class BlogsController < ApplicationController
       @blog.shares.create(:user_id => id)
       @email << User.find(id).email
     end
-    UserMailer.welcome_email(@blog,@email).deliver_now
+    UserMailer.share_blog_email(@blog, @email, current_user).deliver_now
   end
 
   private

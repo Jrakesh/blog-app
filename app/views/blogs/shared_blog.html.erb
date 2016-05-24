@@ -1,12 +1,11 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Shared Blogs</h1>
 <% unless @blogs.blank? %>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>User</th>
-        <th>Title</th>
+        <th>Author</th>
+        <th>Blog Title</th>
         <th colspan="4" ></th>
       </tr>
     </thead>
@@ -23,6 +22,6 @@
     <% end %>	
   </table>
 <%else%>
-  <h3 align="center"> No Public Post</h3>
+  <h3 align="center"> No Public Blog</h3>
 <%end%>
 <br>
